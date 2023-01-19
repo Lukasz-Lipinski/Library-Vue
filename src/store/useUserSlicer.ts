@@ -1,9 +1,11 @@
+import { Book } from '@/views/BooksVue.vue';
 import { defineStore } from 'pinia';
 
 export interface UserProps {
   name?: string;
   surname?: string;
   email: string;
+  reservedBooks?: Book[];
 }
 
 interface UserSlicerProps {
@@ -21,6 +23,7 @@ export const useUserSlicer = defineStore(
           email: '',
           name: '',
           surname: '',
+          reservedBooks: [],
         },
       };
     },
@@ -34,8 +37,12 @@ export const useUserSlicer = defineStore(
           email: '',
           name: '',
           surname: '',
+          reservedBooks: [],
         };
         this.isLogged = false;
+      },
+      reserveBook(payload: Book) {
+        this.user.reservedBooks?.push(payload);
       },
     },
   }
