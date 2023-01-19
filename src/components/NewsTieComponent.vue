@@ -1,12 +1,12 @@
 <template>
-  <li class="col-4 my-2">
+  <li class="my-2 col-md-6 col-xl-4">
     <div class="card p-3 customHeight">
       <div class="card-body">
         <h5 class="card-title">
-          {{ oneNews?.title }}
+          {{ oneNews.title }}
         </h5>
         <p class="card-text">
-          {{ oneNews?.description }}
+          {{ oneNews.description }}
         </p>
       </div>
     </div>
@@ -24,6 +24,7 @@ interface NewsTieProps {
 export default defineComponent({
   props: {
     oneNews: {
+      required: true,
       type: Object as PropType<NewsTieProps>,
     },
   },
@@ -32,6 +33,6 @@ export default defineComponent({
 
 <style lang="scss">
 .customHeight {
-  height: 200px !important;
+  height: 230px !important;
 }
 </style>

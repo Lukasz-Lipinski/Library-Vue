@@ -2,7 +2,7 @@
   <div class="container">
     <section>
       <h2 class="h2 pb-3">Aktualności</h2>
-      <ul class="list-unstyled row col-12">
+      <ul class="list-unstyled row">
         <NewsTieComponent
           v-for="oneNews in news"
           :key="oneNews.title"

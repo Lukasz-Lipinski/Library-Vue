@@ -11,7 +11,9 @@
         :key="name"
         class="lead"
       >
-        {{ setLabel(name) }}: {{ value }}
+        <span
+          >{{ setLabel(name) }}: {{ value }}</span
+        >
       </p>
     </div>
 
@@ -24,7 +26,10 @@
 </template>
 
 <script lang="ts">
-import { useUserSlicer } from '@/store/useUserSlicer';
+import {
+  UserProps,
+  useUserSlicer,
+} from '@/store/useUserSlicer';
 import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 
@@ -34,9 +39,15 @@ export default defineComponent({
       useUserSlicer()
     );
 
+    const { email, surname, name } = user.value;
+
     return {
       isLogged,
-      user,
+      user: {
+        email,
+        surname,
+        name,
+      },
     };
   },
   methods: {
