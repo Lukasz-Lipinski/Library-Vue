@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid pb-4">
     <div class="input-group">
       <input
-        class="form-control"
+        class="form-control fs-5"
         type="search"
         v-model="searcher"
         @keypress="onFind"
