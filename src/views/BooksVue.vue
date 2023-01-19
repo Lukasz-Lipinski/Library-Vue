@@ -5,17 +5,15 @@
     ></SearcherComponent>
 
     <div class="container">
-      <p
-        v-for="book in books"
-        :key="book.title"
-      >
-        {{ book.title }}
-      </p>
+      <BooksListComponent
+        :books="books"
+      ></BooksListComponent>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import BooksListComponent from '@/components/BooksListComponent.vue';
 import SearcherComponent from '@/components/SearcherComponent.vue';
 import { useUserSlicer } from '@/store/useUserSlicer';
 import axios from 'axios';
@@ -33,7 +31,7 @@ interface ResponseWithBooks {
   books: Book[];
 }
 
-interface Book {
+export interface Book {
   title: string;
   subtitle: string;
   isbn13: string;
@@ -43,7 +41,10 @@ interface Book {
 }
 
 export default defineComponent({
-  components: { SearcherComponent },
+  components: {
+    SearcherComponent,
+    BooksListComponent,
+  },
   setup() {
     const { isLogged } = storeToRefs(
       useUserSlicer()
