@@ -46,12 +46,10 @@ export default defineComponent({
     BooksListComponent,
   },
   setup() {
-    const { isLogged } = storeToRefs(
-      useUserSlicer()
-    );
-    return {
-      isLogged,
-    };
+    const { getUserStatus: isLogged } =
+      storeToRefs(useUserSlicer());
+
+    return { isLogged };
   },
   data: (): BooksComponentState => ({
     books: [],

@@ -15,9 +15,8 @@ import { useUserSlicer } from '@/store/useUserSlicer';
 
 export default defineComponent({
   setup() {
-    const { isLogged } = storeToRefs(
-      useUserSlicer()
-    );
+    const { getUserStatus: isLogged } =
+      storeToRefs(useUserSlicer());
 
     return {
       isLogged,
