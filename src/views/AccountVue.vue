@@ -17,39 +17,65 @@
       </p>
     </div>
 
-    <div class="container-fluid col-6 p-3">
+    <div
+      class="container-fluid col-6 p-3 text-center"
+    >
       <h4 class="h4 text-center pb-3">
         Wypożyczone książki
       </h4>
+      <ReservedBooksComponent
+        @booksListEmitter="setReservedBooksList"
+      ></ReservedBooksComponent>
     </div>
   </div>
+
+  <ReservedBooksList
+    v-if="show"
+    @onHideModal="setReservedBooksList"
+  >
+  </ReservedBooksList>
 </template>
 
 <script lang="ts">
-import {
-  UserProps,
-  useUserSlicer,
-} from '@/store/useUserSlicer';
+import ReservedBooksComponent from '@/components/ReservedBooksComponent.vue';
+import ReservedBooksList from '@/components/ReservedBooksList.vue';
+import { useUserSlicer } from '@/store/useUserSlicer';
 import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 
-export default defineComponent({
-  setup() {
-    const { isLogged, user } = storeToRefs(
-      useUserSlicer()
-    );
+interface AccountVueState {
+  show: boolean;
+}
 
-    const { email, surname, name } = user.value;
+export default defineComponent({
+  components: {
+    ReservedBooksComponent,
+    ReservedBooksList,
+  },
+  setup() {
+    const { getUser, getUserStatus } =
+      storeToRefs(useUserSlicer());
+
+    const {
+      email,
+      name,
+      surname,
+      reservedBooks,
+    } = getUser.value;
 
     return {
-      isLogged,
+      isLogged: getUserStatus,
       user: {
         email,
-        surname,
         name,
+        surname,
       },
+      reservedBooks,
     };
   },
+  data: (): AccountVueState => ({
+    show: false,
+  }),
   methods: {
     setLabel(name: string) {
       switch (name) {
@@ -63,6 +89,12 @@ export default defineComponent({
           return '';
       }
     },
+
+    setReservedBooksList(
+      shouldBeEmerged: boolean
+    ) {
+      this.show = shouldBeEmerged;
+    },
   },
   beforeCreate() {
     if (!this.isLogged) {
@@ -72,4 +104,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped></style>

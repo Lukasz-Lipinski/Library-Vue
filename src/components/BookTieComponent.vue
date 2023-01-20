@@ -51,25 +51,24 @@
 <script lang="ts">
 import { useUserSlicer } from '@/store/useUserSlicer';
 import { Book } from '@/views/BooksVue.vue';
-import { storeToRefs } from 'pinia';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   setup(props, ctx) {
-    const store = storeToRefs(useUserSlicer());
-    const userSlicer = useUserSlicer();
+    const { getReservedBooks, reserveBook } =
+      useUserSlicer();
 
     return {
-      client: store.user,
-      ...userSlicer,
+      reservedBooks: getReservedBooks,
+      reserveBook,
     };
   },
 
   computed: {
     checkIfAdded(): boolean {
       const isCurrentBookReserved =
-        this.user.reservedBooks?.find(
-          (book) =>
+        this.reservedBooks!.find(
+          (book: Book) =>
             book.isbn13 === this.book.isbn13
         );
 
@@ -80,8 +79,8 @@ export default defineComponent({
   methods: {
     onReserveBook() {
       const isCurrentBookReserved =
-        this.user.reservedBooks?.find(
-          (book) =>
+        this.reservedBooks!.find(
+          (book: Book) =>
             book.isbn13 === this.book.isbn13
         );
 

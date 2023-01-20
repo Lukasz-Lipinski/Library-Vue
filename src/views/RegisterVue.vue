@@ -15,9 +15,8 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   setup() {
-    const { isLogged } = storeToRefs(
-      useUserSlicer()
-    );
+    const { getUserStatus: isLogged } =
+      storeToRefs(useUserSlicer());
 
     return {
       isLogged,

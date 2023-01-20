@@ -70,15 +70,14 @@ interface State {
 
 export default defineComponent({
   setup(props, ctx) {
-    const { isLogged, user } = storeToRefs(
-      useUserSlicer()
-    );
+    const { getUser, getUserStatus } =
+      storeToRefs(useUserSlicer());
 
     const { logout } = useUserSlicer();
 
     return {
-      isLogged,
-      user,
+      isLogged: getUserStatus,
+      user: getUser,
       logout,
     };
   },

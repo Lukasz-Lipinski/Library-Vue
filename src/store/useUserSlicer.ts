@@ -16,7 +16,7 @@ interface UserSlicerProps {
 export const useUserSlicer = defineStore(
   'userSlicer',
   {
-    state(): UserSlicerProps {
+    state: (): UserSlicerProps => {
       return {
         isLogged: true,
         user: {
@@ -44,6 +44,28 @@ export const useUserSlicer = defineStore(
       reserveBook(payload: Book) {
         this.user.reservedBooks?.push(payload);
       },
+      putDownBook(payload: Book) {
+        console.log('clicked store');
+
+        this.user.reservedBooks =
+          this.user.reservedBooks?.filter(
+            (book) =>
+              book.isbn13 !== payload.isbn13
+          );
+
+        console.log(
+          'store',
+          this.user.reservedBooks
+        );
+      },
+    },
+    getters: {
+      getReservedBooksQuantity: (state) =>
+        state.user.reservedBooks?.length,
+      getReservedBooks: (state) =>
+        state.user.reservedBooks,
+      getUser: (state) => state.user,
+      getUserStatus: (state) => state.isLogged,
     },
   }
 );
