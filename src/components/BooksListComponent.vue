@@ -1,9 +1,10 @@
 <template>
   <ul class="list-unstyled">
     <BookTieComponent
-      v-for="book in books"
+      v-for="(book, index) in books"
       :key="book.isbn13"
       :book="book"
+      :isLast="index === books.length - 1"
     ></BookTieComponent>
   </ul>
 </template>
