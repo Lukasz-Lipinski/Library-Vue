@@ -1,5 +1,8 @@
 <template>
-  <li class="border p-3 lead row gap-4">
+  <li
+    class="border p-3 lead row gap-4"
+    :class="isLast ? 'mb-0' : 'mb-3'"
+  >
     <div
       class="row col-md-10 col-sm-12 d-flex justify-content-md-between align-items-center justify-content-sm-center"
     >
@@ -27,7 +30,14 @@
       class="col-2 d-flex align-items-md-center justify-content-md-end customCenter"
     >
       <div>
+        <span
+          class="text-danger"
+          v-if="checkIfAdded"
+        >
+          Książka już jest zarezerwowana
+        </span>
         <button
+          v-else
           class="btn btn-success btn-lg"
           @click="onReserveBook"
         >
@@ -54,6 +64,19 @@ export default defineComponent({
       ...userSlicer,
     };
   },
+
+  computed: {
+    checkIfAdded(): boolean {
+      const isCurrentBookReserved =
+        this.user.reservedBooks?.find(
+          (book) =>
+            book.isbn13 === this.book.isbn13
+        );
+
+      if (isCurrentBookReserved) return true;
+      return false;
+    },
+  },
   methods: {
     onReserveBook() {
       const isCurrentBookReserved =
@@ -62,11 +85,18 @@ export default defineComponent({
             book.isbn13 === this.book.isbn13
         );
 
-      !isCurrentBookReserved &&
+      if (!isCurrentBookReserved) {
         this.reserveBook(this.book);
+        this.$emit('snackbar', true);
+        return;
+      }
     },
   },
   props: {
+    isLast: {
+      required: true,
+      type: Boolean,
+    },
     book: {
       required: true,
       type: Object as PropType<Book>,
