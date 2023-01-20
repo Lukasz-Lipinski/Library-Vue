@@ -18,7 +18,7 @@ export const useUserSlicer = defineStore(
   {
     state: (): UserSlicerProps => {
       return {
-        isLogged: true,
+        isLogged: false,
         user: {
           email: '',
           name: '',
