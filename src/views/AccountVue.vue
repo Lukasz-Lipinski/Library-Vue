@@ -41,7 +41,7 @@ import ReservedBooksComponent from '@/components/ReservedBooksComponent.vue';
 import ReservedBooksList from '@/components/ReservedBooksList.vue';
 import { useUserSlicer } from '@/store/useUserSlicer';
 import { storeToRefs } from 'pinia';
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 interface AccountVueState {
   show: boolean;
@@ -53,15 +53,14 @@ export default defineComponent({
     ReservedBooksList,
   },
   setup() {
-    const { getUser, getUserStatus } =
-      storeToRefs(useUserSlicer());
-
     const {
-      email,
-      name,
-      surname,
-      reservedBooks,
-    } = getUser.value;
+      getUser,
+      getUserStatus,
+      getReservedBooks,
+    } = storeToRefs(useUserSlicer());
+
+    const { email, name, surname } =
+      getUser.value;
 
     return {
       isLogged: getUserStatus,
@@ -70,12 +69,19 @@ export default defineComponent({
         name,
         surname,
       },
-      reservedBooks,
+      reservedBooks: getReservedBooks,
     };
   },
   data: (): AccountVueState => ({
     show: false,
   }),
+  provide() {
+    return {
+      reservedBooks: computed(
+        () => this.reservedBooks
+      ),
+    };
+  },
   methods: {
     setLabel(name: string) {
       switch (name) {

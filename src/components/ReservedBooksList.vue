@@ -49,15 +49,12 @@ interface ReservedBooksListProps {
 
 export default defineComponent({
   setup() {
-    const {
-      getReservedBooks: reservedBooks,
-      getReservedBooksQuantity,
-    } = storeToRefs(useUserSlicer());
+    const { getReservedBooksQuantity } =
+      storeToRefs(useUserSlicer());
     const { putDownBook } = useUserSlicer();
 
     return {
       putDownBook,
-      reservedBooks,
       q: getReservedBooksQuantity,
     };
   },
@@ -66,6 +63,7 @@ export default defineComponent({
       books: [],
     };
   },
+  inject: ['reservedBooks'],
   created() {
     this.books = this.reservedBooks as Book[];
   },
