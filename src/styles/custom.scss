@@ -1,13 +1,16 @@
-$primary: #b9d6f2 !default;
-$secondary: #fed766 !default;
-$success: #6bd425 !default; //$green
-$light: #0353a4 !default;
-$dark: #061a40 !default;
+$primary: #b9d6f2;
+$secondary: #fed766;
+$success: #6bd425; //$green
+$light: #0353a4;
+$dark: #061a40;
 
 $theme-colors: (
   "primary": $primary,
   "secondary": $secondary,
   "success": $success,
   "light": $light,
-  "dark": $dark) !default;
+  "dark": $dark
+);
 // scss-docs-end theme-colors-map
+
+@import 'bootstrap/scss/bootstrap.scss';

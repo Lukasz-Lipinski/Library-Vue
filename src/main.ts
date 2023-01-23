@@ -7,7 +7,6 @@ import {
   defaultConfig,
 } from '@formkit/vue';
 import '@formkit/themes/genesis';
-import 'bootstrap/scss/bootstrap.scss';
 import '@/styles/custom.scss';
 
 createApp(App)
