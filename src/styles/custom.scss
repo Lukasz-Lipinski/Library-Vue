@@ -1,9 +1,6 @@
 $primary: #b9d6f2 !default;
 $secondary: #fed766 !default;
 $success: #6bd425 !default; //$green
-$info: $cyan !default; //$cyan
-$warning: $yellow !default;
-$danger: $red !default; //$red
 $light: #0353a4 !default;
 $dark: #061a40 !default;
 
@@ -11,9 +8,6 @@ $theme-colors: (
   "primary": $primary,
   "secondary": $secondary,
   "success": $success,
-  "info": $info,
-  "warning": $warning,
-  "danger": $danger,
   "light": $light,
   "dark": $dark) !default;
 // scss-docs-end theme-colors-map
