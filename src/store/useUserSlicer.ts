@@ -52,11 +52,6 @@ export const useUserSlicer = defineStore(
             (book) =>
               book.isbn13 !== payload.isbn13
           );
-
-        console.log(
-          'store',
-          this.user.reservedBooks
-        );
       },
     },
     getters: {

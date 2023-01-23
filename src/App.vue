@@ -28,6 +28,7 @@ export default defineComponent({
         url !== 'registration'
       )
         return this.fc;
+      return null;
     },
   },
 });
