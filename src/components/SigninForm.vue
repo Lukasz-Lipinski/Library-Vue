@@ -119,9 +119,15 @@ export default defineComponent({
         const { data } = await axios.get(
           `${process.env.VUE_APP_DB_URL}/users.json`
         );
-        this.login(
-          Object.values(data)[0] as UserProps
-        );
+
+        const userData: UserProps = {
+          ...(Object.values(
+            data
+          )[0] as UserProps),
+          reservedBooks: [],
+        };
+
+        this.login(userData);
         this.$router.push('account');
       }
     },

@@ -54,8 +54,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { storeToRefs } from 'pinia';
 import { useUserSlicer } from '@/store/useUserSlicer';
+import { storeToRefs } from 'pinia';
 
 interface Link {
   href: string;
@@ -70,10 +70,10 @@ interface State {
 
 export default defineComponent({
   setup(props, ctx) {
+    const { logout } = useUserSlicer();
+
     const { getUser, getUserStatus } =
       storeToRefs(useUserSlicer());
-
-    const { logout } = useUserSlicer();
 
     return {
       isLogged: getUserStatus,
