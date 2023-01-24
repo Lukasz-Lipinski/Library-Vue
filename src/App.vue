@@ -1,9 +1,9 @@
 <template>
   <NavigationComponent></NavigationComponent>
   <div class="container-fluid py-4">
-    <router-view></router-view>
+    <router-view class="fadein"></router-view>
   </div>
-  <component :is="setFooter"></component>
+  <component :is="{ ...setFooter }"></component>
 </template>
 
 <script lang="ts">
@@ -25,7 +25,8 @@ export default defineComponent({
 
       if (
         url !== 'signin' &&
-        url !== 'registration'
+        url !== 'registration' &&
+        url !== 'gallery'
       )
         return this.fc;
       return null;

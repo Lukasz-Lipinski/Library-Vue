@@ -1,4 +1,4 @@
-import { Book } from '@/views/BooksVue.vue';
+import { Book } from '@/shared/interfaces';
 import { defineStore } from 'pinia';
 
 export interface UserProps {
@@ -45,8 +45,6 @@ export const useUserSlicer = defineStore(
         this.user.reservedBooks?.push(payload);
       },
       putDownBook(payload: Book) {
-        console.log('clicked store');
-
         this.user.reservedBooks =
           this.user.reservedBooks?.filter(
             (book) =>

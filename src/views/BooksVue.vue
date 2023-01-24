@@ -28,9 +28,9 @@
 <script lang="ts">
 import BooksListComponent from '@/components/BooksListComponent.vue';
 import SearcherComponent from '@/components/SearcherComponent.vue';
+import { Book } from '@/shared/interfaces';
 import { useUserSlicer } from '@/store/useUserSlicer';
 import axios from 'axios';
-import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 
 interface BooksComponentState {
@@ -45,15 +45,6 @@ interface ResponseWithBooks {
   books: Book[];
 }
 
-export interface Book {
-  title: string;
-  subtitle: string;
-  isbn13: string;
-  price: string;
-  image: string;
-  url: string;
-}
-
 export default defineComponent({
   components: {
     SearcherComponent,
@@ -61,7 +52,7 @@ export default defineComponent({
   },
   setup() {
     const { getUserStatus: isLogged } =
-      storeToRefs(useUserSlicer());
+      useUserSlicer();
 
     return { isLogged };
   },
@@ -80,8 +71,8 @@ export default defineComponent({
     axios
       .get<ResponseWithBooks>(url)
       .then((req) => {
-        this.books = req.data.books;
         this.isLoading = false;
+        this.books = req.data.books;
       });
   },
   methods: {
@@ -92,12 +83,12 @@ export default defineComponent({
       const req =
         await axios.get<ResponseWithBooks>(url);
       if (req.data.books.length) {
-        this.books = req.data.books;
         this.isLoading = false;
+        this.books = req.data.books;
       }
     },
-    onFindBooks(title: string) {
-      this.findBook(title);
+    async onFindBooks(title: string) {
+      await this.findBook(title);
     },
   },
 });

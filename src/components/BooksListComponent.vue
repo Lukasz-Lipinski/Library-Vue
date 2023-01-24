@@ -10,11 +10,12 @@
 </template>
 
 <script lang="ts">
-import { Book } from '@/views/BooksVue.vue';
+import { Book } from '@/shared/interfaces';
 import { defineComponent, PropType } from 'vue';
 import BookTieComponent from './BookTieComponent.vue';
 
 export default defineComponent({
+  name: 'BooksListComponent',
   components: { BookTieComponent },
   props: {
     books: {
@@ -25,4 +26,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang=""></style>
+<style lang="scss"></style>
