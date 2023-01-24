@@ -3,14 +3,21 @@ $secondary: #fed766;
 $success: #6bd425; //$green
 $light: #0353a4;
 $dark: #061a40;
+$info: #0dcaf0; //$cyan
+$warning: #ffc107;
+$danger: #dc3545; //$red
 
 $theme-colors: (
   "primary": $primary,
   "secondary": $secondary,
   "success": $success,
   "light": $light,
-  "dark": $dark
+  "dark": $dark,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
 );
 // scss-docs-end theme-colors-map
 
+@import './animations';
 @import 'bootstrap/scss/bootstrap.scss';

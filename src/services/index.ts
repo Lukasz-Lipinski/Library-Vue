@@ -1,6 +1,8 @@
 import { UserProps } from '@/store/useUserSlicer';
 import axios from 'axios';
 
+//INTERFACES
+
 export interface Request {
   email: string;
   password: string;
@@ -14,6 +16,8 @@ export interface Response {
   expiresIn: string;
   localId: string;
 }
+
+//FUNCTIONS
 
 export const sendRequest = async (
   user: Omit<Request, 'returnSecureToken'>

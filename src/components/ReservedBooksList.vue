@@ -38,8 +38,8 @@
 </template>
 
 <script lang="ts">
+import { Book } from '@/shared/interfaces';
 import { useUserSlicer } from '@/store/useUserSlicer';
-import { Book } from '@/views/BooksVue.vue';
 import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 
@@ -49,13 +49,10 @@ interface ReservedBooksListProps {
 
 export default defineComponent({
   setup() {
-    const { getReservedBooksQuantity } =
-      storeToRefs(useUserSlicer());
     const { putDownBook } = useUserSlicer();
 
     return {
       putDownBook,
-      q: getReservedBooksQuantity,
     };
   },
   data(): ReservedBooksListProps {
@@ -78,7 +75,6 @@ export default defineComponent({
         (reservedBook) =>
           reservedBook.isbn13 !== book.isbn13
       );
-      console.log(this.q);
     },
   },
 });

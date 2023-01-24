@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container py-3 border-top py-5"
+    class="container py-3 border-top py-5 fadein"
     data-testid="footer-component"
   >
     <div class="row px-2">

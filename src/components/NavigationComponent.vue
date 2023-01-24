@@ -85,7 +85,8 @@ export default defineComponent({
     return {
       links: [
         { href: '/', label: 'Strona główna' },
-        { href: '/about', label: 'O nas' },
+        { href: '/about', label: 'O Nas' },
+        { href: '/gallery', label: 'Galeria' },
       ],
       linksForLogged: [
         { href: '/books', label: 'Zbiory' },

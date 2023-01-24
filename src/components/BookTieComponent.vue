@@ -31,8 +31,8 @@
     >
       <div>
         <span
-          class="text-danger"
           v-if="checkIfAdded"
+          class="text-danger"
         >
           Książka już jest zarezerwowana
         </span>
@@ -49,13 +49,14 @@
 </template>
 
 <script lang="ts">
+import { Book } from '@/shared/interfaces';
 import { useUserSlicer } from '@/store/useUserSlicer';
-import { Book } from '@/views/BooksVue.vue';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
+  name: 'BookTieComponent',
   setup(props, ctx) {
-    const { getReservedBooks, reserveBook } =
+    const { reserveBook, getReservedBooks } =
       useUserSlicer();
 
     return {
@@ -63,7 +64,6 @@ export default defineComponent({
       reserveBook,
     };
   },
-
   computed: {
     checkIfAdded(): boolean {
       const isCurrentBookReserved =

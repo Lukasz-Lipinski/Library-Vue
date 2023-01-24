@@ -2,6 +2,7 @@
   <div
     data-testid="toast-component"
     class="toast-container position-fixed bottom-0"
+    :class="isToast && 'fadein'"
     v-if="isToast"
   >
     <div
