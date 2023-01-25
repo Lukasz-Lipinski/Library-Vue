@@ -35,12 +35,12 @@ describe('Testing Navigation Component', () => {
     let links = component.findAll(
       'router-link'
     ).length;
-    expect(links).toEqual(4);
+    expect(links).toEqual(6);
 
     store.logout();
     links = component.findAll(
       'router-link'
     ).length;
-    expect(links).toEqual(4);
+    expect(links).toEqual(6);
   });
 });
