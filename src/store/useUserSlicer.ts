@@ -6,6 +6,7 @@ export interface UserProps {
   surname?: string;
   email: string;
   reservedBooks?: Book[];
+  
 }
 
 interface UserSlicerProps {
