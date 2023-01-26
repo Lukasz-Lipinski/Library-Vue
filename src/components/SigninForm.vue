@@ -133,7 +133,7 @@ export default defineComponent({
         this.login(userData);
         this.$router.push('account');
       } else {
-        this.$emit('error', true)
+        this.$emit('error', true);
       }
     },
     signin() {
