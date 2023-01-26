@@ -15,8 +15,15 @@
           >{{ setLabel(name) }}: {{ value }}</span
         >
       </p>
-      <div class="container-fluid d-flex justify-content-center">
-        <button @click="setModal(true)" class="btn btn-outline-danger">Usuń konto</button>
+      <div
+        class="container-fluid d-flex justify-content-center"
+      >
+        <button
+          @click="setModal(true)"
+          class="btn btn-outline-danger"
+        >
+          Usuń konto
+        </button>
       </div>
     </div>
 
@@ -38,23 +45,53 @@
   >
   </ReservedBooksList>
 
-    <ModalComponent v-if="isModal" :is-fullscreen="false"  @closeModal="setModal">
-    <template #header><span class="h5">Czy na pewno chcesz usunąć konto?</span></template>
+  <ModalComponent
+    v-if="isModal"
+    :is-fullscreen="false"
+    @closeModal="setModal"
+  >
+    <template #header
+      ><span class="h5"
+        >Czy na pewno chcesz usunąć konto?</span
+      ></template
+    >
     <template #body>
-      <p class="lead" v-if="!spinner">Kliknięcie przycisku "Usuń" spowoduje trwałe usunięcie konta.</p>
-      <p class="lead" v-if="!spinner">Czy na pewno chcesz to zrobić?</p>
-      <div class="spinner-border" role="status" v-else>
-        <span class="visually-hidden">Loading...</span>
+      <p
+        class="lead"
+        v-if="!spinner"
+      >
+        Kliknięcie przycisku "Usuń" spowoduje
+        trwałe usunięcie konta.
+      </p>
+      <p
+        class="lead"
+        v-if="!spinner"
+      >
+        Czy na pewno chcesz to zrobić?
+      </p>
+      <div
+        class="spinner-border"
+        role="status"
+        v-else
+      >
+        <span class="visually-hidden"
+          >Loading...</span
+        >
       </div>
     </template>
     <template #footer>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-outline-danger" @click="onDeleteAccount">Usuń</button>
+      <div
+        class="modal-footer d-flex justify-content-center"
+      >
+        <button
+          class="btn btn-outline-danger"
+          @click="onDeleteAccount"
+        >
+          Usuń
+        </button>
       </div>
     </template>
   </ModalComponent>
-
-
 </template>
 
 <script lang="ts">
@@ -78,28 +115,25 @@ export default defineComponent({
     ReservedBooksComponent,
     ReservedBooksList,
     ToastComponent,
-    ModalComponent
-},
+    ModalComponent,
+  },
   setup() {
     const {
-      getUser,
+      getUserData,
       getUserStatus,
       getReservedBooks,
+      getUser,
     } = storeToRefs(useUserSlicer());
 
-    const { email, name, surname } =
-      getUser.value;
+    const userData = getUserData.value;
 
     return {
       isLogged: getUserStatus,
       user: {
-        email,
-        name,
-        surname,
-
+        ...userData,
       },
+      us: getUser,
       reservedBooks: getReservedBooks,
-
     };
   },
   data: (): AccountVueState => ({
@@ -139,19 +173,15 @@ export default defineComponent({
       this.spinner = true;
       const url = `${process.env.VUE_APP_DB_URL_DELETE}${process.env.VUE_APP_API_KEY}`;
 
-      const req = await axios.post(url, {
-
-      });
+      const req = await axios.post(url, {});
 
       if (req.status === 200) {
         this.spinner = false;
-        this.$router.push('/')
+        this.$router.push('/');
       } else {
         this.spinner = false;
       }
-
-
-    }
+    },
   },
   beforeCreate() {
     if (!this.isLogged) {

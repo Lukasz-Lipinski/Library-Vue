@@ -67,7 +67,6 @@ import {
   sendRequest,
   sendUserData,
 } from '@/services';
-import axios from 'axios';
 
 interface RegistrationFormState {
   isValid: boolean;
@@ -169,12 +168,6 @@ export default defineComponent({
     getPlaceholder(label: string): string {
       return `Please assign your ${label}`;
     },
-    async getUserID() {
-      const url = `${process.env.VUE_APP_DB_URL}/users.json`;
-      const req = await axios.get(url);
-
-      return Object.keys(req.data)[0];
-    },
     async onSubmit() {
       if (this.isValid) {
         this.isLoading = true;
@@ -189,18 +182,21 @@ export default defineComponent({
           ...user,
         } as Omit<Request, 'returnSecureToken'>);
 
-        if (response) {
+        if (+response.status === 200) {
           this.isLoading = false;
+
+          console.log(response);
 
           const userData: UserProps = {
             email: this.email,
             name: this.name,
             surname: this.surname,
+            localId: (response.data as Response)
+              .localId,
           };
 
           await sendUserData(userData);
-          const id = await this.getUserID();
-          this.login({ ...userData, id });
+          this.login({ ...userData });
         }
       }
     },

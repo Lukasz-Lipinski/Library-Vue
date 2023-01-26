@@ -17,8 +17,6 @@ export interface Response {
   localId: string;
 }
 
-//FUNCTIONS
-
 export const sendRequest = async (
   user: Omit<Request, 'returnSecureToken'>
 ) => {
@@ -32,24 +30,17 @@ export const sendRequest = async (
 
   const { data, status } = req;
 
-  if (+status === 200) {
-    return {
-      status,
-      data,
-    };
-  }
-
   return {
-    status: req.response.status,
-    data: req.response.data,
+    status,
+    data,
   };
 };
 
 export const sendUserData = async (
   userData: UserProps
 ) => {
-  const url = `${process.env.VUE_APP_DB_URL}users.json`;
-  const req = await axios.post(url, userData);
+  const url = `${process.env.VUE_APP_DB_URL}${userData.localId}.json`;
+  await axios.post<Response>(url, userData);
 };
 
 export const clearErrors = (

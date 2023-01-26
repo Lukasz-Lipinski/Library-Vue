@@ -6,7 +6,7 @@ export interface UserProps {
   surname?: string;
   email: string;
   reservedBooks?: Book[];
-  id?: string;
+  localId?: string;
 }
 
 interface UserSlicerProps {
@@ -19,13 +19,13 @@ export const useUserSlicer = defineStore(
   {
     state: (): UserSlicerProps => {
       return {
-        isLogged: true,
+        isLogged: false,
         user: {
           email: '',
           name: '',
           surname: '',
           reservedBooks: [],
-          id: '',
+          localId: '',
         },
       };
     },
@@ -39,8 +39,8 @@ export const useUserSlicer = defineStore(
           email: '',
           name: '',
           surname: '',
-          id: '',
           reservedBooks: [],
+          localId: '',
         };
         this.isLogged = false;
       },
@@ -60,6 +60,19 @@ export const useUserSlicer = defineStore(
         state.user.reservedBooks?.length,
       getReservedBooks: (state) =>
         state.user.reservedBooks,
+      getUserData: (state) => {
+        const { email, name, surname } =
+          state.user;
+        const userData: Omit<
+          UserProps,
+          'reservedBooks' | 'id' | 'localId'
+        > = {
+          email,
+          name,
+          surname,
+        };
+        return userData;
+      },
       getUser: (state) => state.user,
       getUserStatus: (state) => state.isLogged,
     },

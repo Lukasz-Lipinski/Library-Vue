@@ -14,6 +14,7 @@ const mockedData: UserProps = {
   email: 'test@test.com',
   name: 'test-name',
   surname: 'test-surname',
+  localId: 'test',
 };
 
 describe('Testing Registration Form Component', () => {

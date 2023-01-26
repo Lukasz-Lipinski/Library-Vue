@@ -47,11 +47,9 @@ import {
   clearErrors,
   filterErrors,
   Request,
+  Response,
 } from '@/services';
-import axios, { Axios, AxiosError } from 'axios';
-import { email, password } from '@formkit/inputs';
-import { FormKit } from '@formkit/vue';
-
+import axios from 'axios';
 export default defineComponent({
   setup() {
     const { login } = useUserSlicer();
@@ -103,12 +101,13 @@ export default defineComponent({
   methods: {
     async sendUserData() {
       const url = `${process.env.VUE_APP_DB_URL_SIGNIN}${process.env.VUE_APP_API_KEY}`;
+
       const loginData: Request = {
         email: this.email,
         password: this.password,
         returnSecureToken: true,
       };
-      const req = await axios
+      const res = await axios
         .post(url, loginData)
         .catch((error) => {
           this.isLoading = false;
@@ -116,21 +115,26 @@ export default defineComponent({
           return error;
         });
 
-      if (+req.status === 200) {
-        this.isLoading = false;
+      if (+res.status === 200) {
+        let userData!: UserProps;
+
         const { data } = await axios.get(
-          `${process.env.VUE_APP_DB_URL}/users.json`
+          `${process.env.VUE_APP_DB_URL}${
+            (res.data as Response).localId
+          }.json`
         );
 
-        const userData: UserProps = {
-          ...(Object.values(
-            data
-          )[0] as UserProps),
-          reservedBooks: [],
-          id: Object.keys(data)[0],
-        };
+        for (let user of Object.values(data)) {
+          userData = user as UserProps;
+        }
 
-        this.login(userData);
+        userData &&
+          this.login({
+            ...userData,
+            reservedBooks:
+              userData.reservedBooks || [],
+          });
+        this.isLoading = false;
         this.$router.push('account');
       } else {
         this.$emit('error', true);
