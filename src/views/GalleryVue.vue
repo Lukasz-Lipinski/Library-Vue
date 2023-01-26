@@ -18,10 +18,10 @@
     v-if="isModal"
     @closeModal="setModal"
   >
-    <GalleryListComponent
+    <template #body><GalleryListComponent
       :index="selectedImgIndex"
       @changeImg="onChangeImg"
-    ></GalleryListComponent>
+    ></GalleryListComponent></template>
   </ModalComponent>
 </template>
 
