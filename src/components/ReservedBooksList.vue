@@ -40,7 +40,6 @@
 <script lang="ts">
 import { Book } from '@/shared/interfaces';
 import { useUserSlicer } from '@/store/useUserSlicer';
-import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 
 interface ReservedBooksListProps {

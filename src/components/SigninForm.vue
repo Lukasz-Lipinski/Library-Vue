@@ -125,6 +125,7 @@ export default defineComponent({
             data
           )[0] as UserProps),
           reservedBooks: [],
+          id: Object.keys(data)[0],
         };
 
         this.login(userData);

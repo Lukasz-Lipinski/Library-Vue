@@ -51,17 +51,22 @@
 <script lang="ts">
 import { Book } from '@/shared/interfaces';
 import { useUserSlicer } from '@/store/useUserSlicer';
+import axios from 'axios';
+import { storeToRefs } from 'pinia';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'BookTieComponent',
   setup(props, ctx) {
-    const { reserveBook, getReservedBooks } =
-      useUserSlicer();
+    const { reserveBook } = useUserSlicer();
+
+    const { getReservedBooks, getUser } =
+      storeToRefs(useUserSlicer());
 
     return {
       reservedBooks: getReservedBooks,
       reserveBook,
+      user: getUser,
     };
   },
   computed: {
@@ -77,7 +82,32 @@ export default defineComponent({
     },
   },
   methods: {
-    onReserveBook() {
+    async checkIfAcountIsEmpty(
+      url: string
+    ): Promise<Object | null> {
+      const req = await axios.get(url);
+      const res = await req.data;
+
+      return res;
+    },
+    async saveBookToAccount() {
+      const url = `${process.env.VUE_APP_DB_URL}books.json`;
+
+      const isEmpty =
+        await this.checkIfAcountIsEmpty(url);
+
+      isEmpty && axios.put(url, {});
+
+      const req = await axios.post(url, {
+        user: this.user.email,
+        reservedBooks: this.reservedBooks,
+      });
+
+      const res = await req.data;
+
+      return res;
+    },
+    async onReserveBook() {
       const isCurrentBookReserved =
         this.reservedBooks!.find(
           (book: Book) =>

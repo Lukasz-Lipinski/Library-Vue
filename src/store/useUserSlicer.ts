@@ -6,6 +6,7 @@ export interface UserProps {
   surname?: string;
   email: string;
   reservedBooks?: Book[];
+  id?: string;
 }
 
 interface UserSlicerProps {
@@ -24,6 +25,7 @@ export const useUserSlicer = defineStore(
           name: '',
           surname: '',
           reservedBooks: [],
+          id: '',
         },
       };
     },
@@ -37,6 +39,7 @@ export const useUserSlicer = defineStore(
           email: '',
           name: '',
           surname: '',
+          id: '',
           reservedBooks: [],
         };
         this.isLogged = false;

@@ -63,9 +63,11 @@ import {
   clearErrors,
   filterErrors,
   Request,
+  Response,
   sendRequest,
   sendUserData,
 } from '@/services';
+import axios from 'axios';
 
 interface RegistrationFormState {
   isValid: boolean;
@@ -167,6 +169,12 @@ export default defineComponent({
     getPlaceholder(label: string): string {
       return `Please assign your ${label}`;
     },
+    async getUserID() {
+      const url = `${process.env.VUE_APP_DB_URL}/users.json`;
+      const req = await axios.get(url);
+
+      return Object.keys(req.data)[0];
+    },
     async onSubmit() {
       if (this.isValid) {
         this.isLoading = true;
@@ -190,8 +198,9 @@ export default defineComponent({
             surname: this.surname,
           };
 
-          sendUserData(userData);
-          this.login(userData);
+          await sendUserData(userData);
+          const id = await this.getUserID();
+          this.login({ ...userData, id });
         }
       }
     },
