@@ -68,6 +68,7 @@ export default defineComponent({
       this.acceptation = false;
     },
     onSubmit() {
+      console.log('newsletter')
       this.$emit('snackbar', true);
       this.setDefault();
     },

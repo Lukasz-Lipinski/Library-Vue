@@ -13,7 +13,7 @@
       <div
         class="toast-header d-flex justify-content-between p-2"
       >
-        <p class="fw-bold m-0">Udało się!</p>
+        <slot name="header"></slot>
         <button
           type="button"
           class="btn-close"
@@ -22,7 +22,7 @@
         ></button>
       </div>
       <div class="toast-body">
-        <p>Zostałeś zapisany do newslettera!</p>
+        <slot name="body"></slot>
       </div>
     </div>
   </div>

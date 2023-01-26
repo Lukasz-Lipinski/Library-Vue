@@ -21,10 +21,6 @@ import { useUserSlicer } from '@/store/useUserSlicer';
 import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 
-interface ReservedBooksState {
-  quantity: number;
-}
-
 export default defineComponent({
   setup(props, ctx) {
     const { getReservedBooksQuantity: quantity } =

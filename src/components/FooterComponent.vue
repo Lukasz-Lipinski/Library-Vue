@@ -41,7 +41,10 @@
       :is-toast="isToast"
       @onHide="setToast($event)"
       @snackbar="setToast($event)"
-    ></ToastComponent>
+    >
+    <template #header>Udało się!</template>
+    <template #body>Twój email został dodany do newslettera</template>
+  </ToastComponent>
   </div>
 </template>
 
@@ -60,6 +63,8 @@ export default defineComponent({
   },
   methods: {
     setToast(event: boolean) {
+      console.log(event);
+      
       this.isToast = event;
     },
   },

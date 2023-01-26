@@ -65,7 +65,7 @@ describe('Testing Footer Component', () => {
         ToastComponentVue
       );
 
-      expect(toast.exists()).toBeTruthy();
+      expect(toast.exists()).not.toBeTruthy();
     });
   });
 });

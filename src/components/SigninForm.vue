@@ -48,7 +48,9 @@ import {
   filterErrors,
   Request,
 } from '@/services';
-import axios from 'axios';
+import axios, { Axios, AxiosError } from 'axios';
+import { email, password } from '@formkit/inputs';
+import { FormKit } from '@formkit/vue';
 
 export default defineComponent({
   setup() {
@@ -64,6 +66,7 @@ export default defineComponent({
     errors: ['email', 'password'],
     isValid: false,
     isLoading: false,
+    isError: false,
   }),
   watch: {
     password() {
@@ -110,7 +113,6 @@ export default defineComponent({
         .catch((error) => {
           this.isLoading = false;
           this.isValid = true;
-
           return error;
         });
 
@@ -130,6 +132,8 @@ export default defineComponent({
 
         this.login(userData);
         this.$router.push('account');
+      } else {
+        this.$emit('error', true)
       }
     },
     signin() {
