@@ -66,6 +66,7 @@ import {
   Response,
   sendRequest,
   sendUserData,
+  updateDataOnBackend,
 } from '@/services';
 
 interface RegistrationFormState {
@@ -189,7 +190,6 @@ export default defineComponent({
             email: this.email,
             name: this.name,
             surname: this.surname,
-            reservedBooks: [],
             idToken: (response.data as Response)
               .idToken,
             id: (response.data as Response)
@@ -197,6 +197,7 @@ export default defineComponent({
           };
 
           await sendUserData(userData);
+          await updateDataOnBackend(userData);
           this.login({ ...userData });
           this.$router.push('/account');
         }

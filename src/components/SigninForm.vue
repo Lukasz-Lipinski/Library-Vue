@@ -116,24 +116,16 @@ export default defineComponent({
         });
 
       if (+res.status === 200) {
-        let userData!: UserProps;
-
         const { data } = await axios.get(
           `${process.env.VUE_APP_DB_URL}/users/${
             (res.data as Response).localId
           }.json`
         );
+        this.login({
+          ...data,
+          reservedBooks: data.reservedBooks || [],
+        });
 
-        for (let user of Object.values(data)) {
-          userData = user as UserProps;
-        }
-
-        userData &&
-          this.login({
-            ...userData,
-            reservedBooks:
-              userData.reservedBooks || [],
-          });
         this.isLoading = false;
         this.$router.push('account');
       } else {

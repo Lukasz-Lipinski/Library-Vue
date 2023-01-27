@@ -1,3 +1,4 @@
+import { Book } from '@/shared/interfaces';
 import { UserProps } from '@/store/useUserSlicer';
 import axios from 'axios';
 
@@ -40,7 +41,16 @@ export const sendUserData = async (
   userData: UserProps
 ) => {
   const url = `${process.env.VUE_APP_DB_URL}/users/${userData.id}.json`;
-  await axios.post<Response>(url, userData);
+  await axios.post<Response>(url, {
+    ...userData,
+  });
+};
+
+export const updateDataOnBackend = async (
+  userData: UserProps
+) => {
+  const url = `${process.env.VUE_APP_DB_URL}/users/${userData.id}.json`;
+  await axios.put(url, userData);
 };
 
 export const clearErrors = (

@@ -21,7 +21,7 @@ describe('Testing Navigation Component', () => {
     expect(component).toBeDefined();
   });
 
-  it('Should exactly return 4 links depends on user status', () => {
+  it('Should exactly return 5 links depends on user status', () => {
     const store = useUserSlicer();
     store.login({
       email: '',
@@ -36,7 +36,7 @@ describe('Testing Navigation Component', () => {
     let links = component.findAll(
       'router-link'
     ).length;
-    expect(links).toEqual(6);
+    expect(links).toEqual(5);
 
     store.logout();
     links = component.findAll(

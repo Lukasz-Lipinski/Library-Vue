@@ -49,6 +49,7 @@
 </template>
 
 <script lang="ts">
+import { updateDataOnBackend } from '@/services';
 import { Book } from '@/shared/interfaces';
 import { useUserSlicer } from '@/store/useUserSlicer';
 import axios from 'axios';
@@ -90,23 +91,6 @@ export default defineComponent({
 
       return res;
     },
-    async saveBookToAccount() {
-      const url = `${process.env.VUE_APP_DB_URL}books.json`;
-
-      const isEmpty =
-        await this.checkIfAcountIsEmpty(url);
-
-      isEmpty && axios.put(url, {});
-
-      const req = await axios.post(url, {
-        user: this.user.email,
-        reservedBooks: this.reservedBooks,
-      });
-
-      const res = await req.data;
-
-      return res;
-    },
     async onReserveBook() {
       const isCurrentBookReserved =
         this.reservedBooks!.find(
@@ -116,6 +100,7 @@ export default defineComponent({
 
       if (!isCurrentBookReserved) {
         this.reserveBook(this.book);
+        updateDataOnBackend(this.user);
         this.$emit('snackbar', true);
         return;
       }
