@@ -5,6 +5,7 @@ It's an applicaton for making a book's reservation. There is posible to create a
 
 # Stack: 
 - VueJS (using Typescript),
+- FormKit for form's creation,
 - Pinia (Global State Management),
 - Bootstrap,
 - Axios for fetching data,
