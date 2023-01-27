@@ -1,24 +1,9 @@
-# library
+Link to app: https://libraryvue-lukasz-lipinski.vercel.app/#/
 
-## Project setup
-```
-npm install
-```
+# Description: 
+It's an applicaton for making a book's reservation. There is posible to create a new account, find a book, reserve it or delete an account. User can put a book down in case of resigning. Firebase is used for saving data (eg. newly-created account or reserved book). Is posibile to delete an account.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+stack: 
+- VueJS (using Typescript),
+- Firebase (backend)
+- Api with IT books
