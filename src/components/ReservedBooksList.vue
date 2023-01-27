@@ -19,7 +19,7 @@
 
         <div class="modal-body">
           <p
-            v-for="book in books"
+            v-for="book in user.reservedBooks"
             :key="book.isbn13"
             class="d-flex justify-content-between align-items-center py-2 border-bottom"
           >
@@ -38,8 +38,10 @@
 </template>
 
 <script lang="ts">
+import { updateDataOnBackend } from '@/services';
 import { Book } from '@/shared/interfaces';
 import { useUserSlicer } from '@/store/useUserSlicer';
+import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 
 interface ReservedBooksListProps {
@@ -49,31 +51,22 @@ interface ReservedBooksListProps {
 export default defineComponent({
   setup() {
     const { putDownBook } = useUserSlicer();
+    const { getUser } = storeToRefs(
+      useUserSlicer()
+    );
 
     return {
       putDownBook,
+      user: getUser,
     };
-  },
-  data(): ReservedBooksListProps {
-    return {
-      books: [],
-    };
-  },
-  inject: ['reservedBooks'],
-  created() {
-    this.books = this.reservedBooks as Book[];
   },
   methods: {
     onCloseModal() {
       this.$emit('onHideModal', false);
     },
-    onPutDown(book: Book) {
+    async onPutDown(book: Book) {
       this.putDownBook(book);
-
-      this.books = this.books.filter(
-        (reservedBook) =>
-          reservedBook.isbn13 !== book.isbn13
-      );
+      await updateDataOnBackend(this.user);
     },
   },
 });

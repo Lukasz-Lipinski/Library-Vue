@@ -145,13 +145,6 @@ export default defineComponent({
     isModal: false,
     spinner: false,
   }),
-  provide() {
-    return {
-      reservedBooks: computed(
-        () => this.reservedBooks
-      ),
-    };
-  },
   methods: {
     setLabel(name: string) {
       switch (name) {
