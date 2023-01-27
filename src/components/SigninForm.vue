@@ -39,10 +39,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import {
-  UserProps,
-  useUserSlicer,
-} from '@/store/useUserSlicer';
+import { useUserSlicer } from '@/store/useUserSlicer';
 import {
   clearErrors,
   filterErrors,
@@ -121,6 +118,9 @@ export default defineComponent({
             (res.data as Response).localId
           }.json`
         );
+
+        console.log(data);
+
         this.login({
           ...data,
           reservedBooks: data.reservedBooks || [],

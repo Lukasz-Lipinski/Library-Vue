@@ -198,7 +198,11 @@ export default defineComponent({
 
           await sendUserData(userData);
           await updateDataOnBackend(userData);
-          this.login({ ...userData });
+          this.login({
+            ...userData,
+            reservedBooks:
+              userData.reservedBooks || [],
+          });
           this.$router.push('/account');
         }
       }
