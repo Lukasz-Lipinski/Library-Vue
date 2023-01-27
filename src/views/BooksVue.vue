@@ -6,12 +6,16 @@
 
     <div
       v-if="isLoading"
-      class="spinner-grow text-primary"
-      role="status"
+      class="container d-flex justify-content-center"
     >
-      <span class="visually-hidden"
-        >Loading...</span
+      <div
+        class="spinner-grow text-primary"
+        role="status"
       >
+        <span class="visually-hidden"
+          >Loading...</span
+        >
+      </div>
     </div>
 
     <div
@@ -71,8 +75,8 @@ export default defineComponent({
     axios
       .get<ResponseWithBooks>(url)
       .then((req) => {
-        this.isLoading = false;
         this.books = req.data.books;
+        this.isLoading = false;
       });
   },
   methods: {
@@ -82,9 +86,10 @@ export default defineComponent({
 
       const req =
         await axios.get<ResponseWithBooks>(url);
+
       if (req.data.books.length) {
-        this.isLoading = false;
         this.books = req.data.books;
+        this.isLoading = false;
       }
     },
     async onFindBooks(title: string) {

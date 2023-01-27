@@ -27,7 +27,7 @@ describe('Testing Navigation Component', () => {
       email: '',
       name: '',
       surname: '',
-      localId: '',
+      idToken: '',
     });
 
     const divs = component.findAll('div').length;

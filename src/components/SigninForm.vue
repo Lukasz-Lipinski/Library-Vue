@@ -119,7 +119,7 @@ export default defineComponent({
         let userData!: UserProps;
 
         const { data } = await axios.get(
-          `${process.env.VUE_APP_DB_URL}${
+          `${process.env.VUE_APP_DB_URL}/users/${
             (res.data as Response).localId
           }.json`
         );

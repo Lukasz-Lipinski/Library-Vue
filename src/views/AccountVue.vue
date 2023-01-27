@@ -7,7 +7,7 @@
         Twoje dane
       </h4>
       <p
-        v-for="(value, name) of user"
+        v-for="(value, name) of userData"
         :key="name"
         class="lead"
       >
@@ -70,13 +70,17 @@
         Czy na pewno chcesz to zrobić?
       </p>
       <div
-        class="spinner-border"
-        role="status"
         v-else
+        class="d-flex justify-content-center"
       >
-        <span class="visually-hidden"
-          >Loading...</span
+        <div
+          class="spinner-border"
+          role="status"
         >
+          <span class="visually-hidden"
+            >Loading...</span
+          >
+        </div>
       </div>
     </template>
     <template #footer>
@@ -118,6 +122,7 @@ export default defineComponent({
     ModalComponent,
   },
   setup() {
+    const { logout } = useUserSlicer();
     const {
       getUserData,
       getUserStatus,
@@ -129,11 +134,10 @@ export default defineComponent({
 
     return {
       isLogged: getUserStatus,
-      user: {
-        ...userData,
-      },
-      us: getUser,
+      user: getUser,
+      userData: userData,
       reservedBooks: getReservedBooks,
+      logout,
     };
   },
   data: (): AccountVueState => ({
@@ -158,7 +162,7 @@ export default defineComponent({
         case 'surname':
           return 'Twoje nazwisko';
         default:
-          return '';
+          break;
       }
     },
     setModal(state: boolean) {
@@ -169,14 +173,23 @@ export default defineComponent({
     ) {
       this.show = shouldBeEmerged;
     },
+    async deleteFromBackend() {
+      const url = `${process.env.VUE_APP_DB_URL}users/${this.user.id}.json`;
+
+      await axios.delete(url);
+    },
     async onDeleteAccount() {
       this.spinner = true;
       const url = `${process.env.VUE_APP_DB_URL_DELETE}${process.env.VUE_APP_API_KEY}`;
 
-      const req = await axios.post(url, {});
+      const req = await axios.post(url, {
+        idToken: this.user.idToken,
+      });
 
       if (req.status === 200) {
+        await this.deleteFromBackend();
         this.spinner = false;
+        this.logout();
         this.$router.push('/');
       } else {
         this.spinner = false;

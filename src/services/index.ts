@@ -39,7 +39,7 @@ export const sendRequest = async (
 export const sendUserData = async (
   userData: UserProps
 ) => {
-  const url = `${process.env.VUE_APP_DB_URL}${userData.localId}.json`;
+  const url = `${process.env.VUE_APP_DB_URL}/users/${userData.id}.json`;
   await axios.post<Response>(url, userData);
 };
 

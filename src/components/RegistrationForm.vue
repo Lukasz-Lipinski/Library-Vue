@@ -185,18 +185,20 @@ export default defineComponent({
         if (+response.status === 200) {
           this.isLoading = false;
 
-          console.log(response);
-
           const userData: UserProps = {
             email: this.email,
             name: this.name,
             surname: this.surname,
-            localId: (response.data as Response)
+            reservedBooks: [],
+            idToken: (response.data as Response)
+              .idToken,
+            id: (response.data as Response)
               .localId,
           };
 
           await sendUserData(userData);
           this.login({ ...userData });
+          this.$router.push('/account');
         }
       }
     },
